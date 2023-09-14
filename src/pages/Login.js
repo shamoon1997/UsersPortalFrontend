@@ -11,8 +11,13 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    if (email === 'admin@example.com' && password === 'admin') {
+  const handleLogin = async () => {
+    let response = await fetch(
+      `https://users-portal-backend.vercel.app/login/${email}/${password}`
+    );
+    response = await response.json();
+
+    if (response.status === true) {
       // If email and password are correct, allow access to the next route
       history.push('/app');
     } else {
